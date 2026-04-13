@@ -10,6 +10,7 @@ import { RiskManager, RiskParameters } from '../core/risk/RiskManager';
 import { SelfHealingMechanism } from '../core/healing/SelfHealingMechanism';
 import { AdaptiveStrategySelector, MarketConditions } from '../core/ml/AdaptiveStrategySelector';
 import { CrossChainOptimizer, ChainConfig } from '../core/crosschain/CrossChainOptimizer';
+import { PolymarketBettingStrategy } from '../strategies/PolymarketBettingStrategy';
 import type { AgentConfig } from '../config';
 
 /**
@@ -134,6 +135,9 @@ export class AgentV3 {
       this.allocator = new AllocationOptimizer('Agent:Allocator');
       this.analyzer = new PerformanceAnalyzer('Agent:Analyzer');
       this.dashboard = new Dashboard('Agent:Dashboard');
+
+      // Register Polymarket Betting Strategy
+      this.registerStrategy(new PolymarketBettingStrategy(this.wallet));
 
       // Initialize Phase 6 components
       this.emergencyGenerator = new EmergencyRevenueGenerator(

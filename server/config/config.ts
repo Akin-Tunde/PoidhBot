@@ -41,6 +41,12 @@ const ConfigSchema = z.object({
   farcasterPrivateKey: z.string().optional(),
   neynarApiKey: z.string().optional(),
 
+  // Polymarket
+  polymarketApiKey: z.string().optional(),
+  polymarketSecret: z.string().optional(),
+  polymarketPassphrase: z.string().optional(),
+  polymarketEnv: z.enum(["production", "staging"]).default("production"),
+
   // Bot Behavior
   pollingIntervalSeconds: z.number().int().positive().default(30),
   maxClaimsPerPoll: z.number().int().positive().default(10),
@@ -100,6 +106,11 @@ function parseEnv(): Config {
 
     farcasterPrivateKey: process.env.FARCASTER_PRIVATE_KEY,
     neynarApiKey: process.env.NEYNAR_API_KEY,
+
+    polymarketApiKey: process.env.POLYMARKET_API_KEY,
+    polymarketSecret: process.env.POLYMARKET_SECRET,
+    polymarketPassphrase: process.env.POLYMARKET_PASSPHRASE,
+    polymarketEnv: process.env.POLYMARKET_ENV,
 
     pollingIntervalSeconds: process.env.POLLING_INTERVAL_SECONDS
       ? parseInt(process.env.POLLING_INTERVAL_SECONDS, 10)
